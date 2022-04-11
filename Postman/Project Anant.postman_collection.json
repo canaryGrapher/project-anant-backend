@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "9db0f58d-011b-4027-8999-9ebe4b88beb3",
+		"name": "Project Anant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Mxene Search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"M1\": \"Sc\",\r\n    \"M2\": \"Ti\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"O\",\r\n    \"T2\": \"H\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/searchmxene",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"searchmxene"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3002",
+			"type": "string"
+		}
+	]
+}

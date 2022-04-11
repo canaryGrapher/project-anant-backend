@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "incremental": true, /* Enable incremental compilation */
+    // "target": "es2017", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "commonjs", /* Specify what module code is generated. */
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "paths": {
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@database/*": [
+        "database/*"
+      ],
+      "@prisma/*": [
+        "prisma/*"
+      ],
+    },
+    "resolveJsonModule": true, /* Enable importing .json files */
+    "allowJs": false,
+    "outDir": "build",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Type Checking */
+    "strict": true, /* Enable all strict type-checking options. */
+    "noImplicitAny": true, /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    "strictNullChecks": true, /* When type checking, take into account `null` and `undefined`. */
+    "strictFunctionTypes": true, /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    "strictBindCallApply": true, /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
+    "useUnknownInCatchVariables": true, /* Type catch clause variables as 'unknown' instead of 'any'. */
+    "noUnusedLocals": true, /* Enable error reporting when a local variables aren't read. */
+    // "noUnusedParameters": true, /* Raise an error when a function parameter isn't read */
+    "exactOptionalPropertyTypes": true, /* Interpret optional property types as written, rather than adding 'undefined'. */
+    "noImplicitReturns": true, /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    "allowUnreachableCode": false, /* Disable error reporting for unreachable code. */
+    /* Completeness */
+    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

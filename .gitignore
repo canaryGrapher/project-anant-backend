@@ -1,0 +1,12 @@
+# build folder
+build
+
+# npm related files
+node_modules
+package-lock.json
+
+# environment variables
+*.env
+
+# typescript files
+*.tsbuildinfo
