@@ -15,21 +15,20 @@ const filterSearchResults = (searchParameters: any) => {
 const fetchMxeneDetails = async (searchParameters: searchObjects) => {
     const filteredSearchParameters = filterSearchResults(searchParameters);
 
-    const SearchResults: any = await prisma.mxn_search_mxene.findMany({
+    const SearchResults: any = await prisma.mxene.findMany({
         where: filteredSearchParameters,
         select: {
+            id_: true,
             M1: true,
             M2: true,
             X: true,
             T1: true,
             T2: true,
-            name: true,
-            Lc: true,
-            Bg: true,
-            Mm: true,
-            poscar_file: true,
-            bands_image: true,
-            id: true,
+            mxene: true,
+            bandGap: true,
+            latticeConstant: true,
+            magneticMoment: true,
+            isMetallic: true,
         }
     })
     return SearchResults;
