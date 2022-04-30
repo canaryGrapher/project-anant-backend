@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"M1\": \"Sc\",\r\n    \"M2\": \"Ti\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"O\",\r\n    \"T2\": \"H\"\r\n}"
+							"raw": "{\r\n    \"M1\": \"\",\r\n    \"M2\": \"\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"\",\r\n    \"T2\": \"\"\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/searchmxene",
@@ -30,6 +30,41 @@
 							],
 							"path": [
 								"searchmxene"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Download",
+			"item": [
+				{
+					"name": "Mxene Download",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    id: \"12\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/downloadmxene?id=20,10,11,9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"downloadmxene"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20,10,11,9"
+								}
 							]
 						}
 					},

@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model mxene {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  M1              String
+  M2              String
+  T1              String
+  T2              String
+  X               String
+  bandGap         String
+  bands_dat       String
+  bands_png       String
+  id_             Int     @map("id")
+  isMetallic      Boolean
+  latticeConstant String
+  magneticMoment  String
+  mxene           String
+  poscar_file     String
+}
