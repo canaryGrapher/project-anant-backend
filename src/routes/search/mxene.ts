@@ -9,11 +9,11 @@ const valuesX: string[] = ["C", "N", ""]
 const valuesT: string[] = ["H", "O", "F", "Cl", "Br", "OH", "NP", "CN", "RO", "OBr", "OCl", "SCN", "NCS", "OCN", ""]
 
 mxeneSearchRouter.post('/',
-    body('M1').isIn(valuesM).withMessage('Valid M1 value is required'),
-    body('M2').isIn(valuesM).withMessage('Valid M2 value is required'),
-    body('X').isIn(valuesX).withMessage('Valid X value is required'),
-    body('T1').isIn(valuesT).withMessage('Valid T1 value is required'),
-    body('T2').isIn(valuesT).withMessage('Valid T2 value is required')
+    body('M1').isString().isIn(valuesM).withMessage('Valid M1 value is required'),
+    body('M2').isString().isIn(valuesM).withMessage('Valid M2 value is required'),
+    body('X').isString().isIn(valuesX).withMessage('Valid X value is required'),
+    body('T1').isString().isIn(valuesT).withMessage('Valid T1 value is required'),
+    body('T2').isString().isIn(valuesT).withMessage('Valid T2 value is required')
     , async (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -34,5 +34,5 @@ mxeneSearchRouter.post('/',
 
 
 
-// export the router    
+// export the router
 export default mxeneSearchRouter;

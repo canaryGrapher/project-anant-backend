@@ -36,6 +36,9 @@
       "@middleware/*": [
         "middlewares/*"
       ],
+      "@mutations/*": [
+        "mutations/*"
+      ],
     },
     "resolveJsonModule": true, /* Enable importing .json files */
     "allowJs": false,

@@ -9,18 +9,17 @@ datasource db {
 
 model mxene {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  mxene           String  @unique
   M1              String
   M2              String
   T1              String
   T2              String
   X               String
-  bandGap         String
-  bands_dat       String
-  bands_png       String
-  id_             Int     @map("id")
-  isMetallic      Boolean
   latticeConstant String
   magneticMoment  String
-  mxene           String
-  poscar_file     String
+  bandGap         String
+  isMetallic      Boolean
+  bands_dat       String  @unique
+  poscar_file     String  @unique
+  bands_png       String  @unique
 }

@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "npm run build && ts-node -r tsconfig-paths/register ./build/server.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -r tsconfig-paths/register -r ts-node/register ./build/server.js\"",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon --trace-warnings -r tsconfig-paths/register -r ts-node/register ./build/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc"
   },
