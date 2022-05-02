@@ -7,6 +7,7 @@
     "@prisma/client": "^3.12.0",
     "csv-stringify": "^6.0.5",
     "express": "^4.17.3",
+    "express-oauth2-jwt-bearer": "^1.1.0",
     "express-validator": "^6.14.0",
     "helmet": "^5.0.2",
     "install": "^0.13.0",
