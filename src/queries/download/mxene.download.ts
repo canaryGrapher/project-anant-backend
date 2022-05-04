@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 const downloadMxeneDetails = async (queryParameters: string) => {
     const query = queryParameters.split(',').map(value => {
-        let idObject = { id_: parseInt(value) };
+        let idObject = { id: value };
         return (
             idObject
         )

@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"M1\": \"\",\r\n    \"M2\": \"\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"\",\r\n    \"T2\": \"\"\r\n}"
+							"raw": "{\r\n    \"M1\": \"Cr\",\r\n    \"M2\": \"Cr\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"Cl\",\r\n    \"T2\": \"OH\"\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/searchmxene",
@@ -53,7 +53,7 @@
 							"raw": "{\r\n    id: \"12\"\r\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/downloadmxene?id=20,10,11,9",
+							"raw": "{{base_url}}/downloadmxene?id=626fc898cb59818133466c72",
 							"host": [
 								"{{base_url}}"
 							],
@@ -63,8 +63,94 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "20,10,11,9"
+									"value": "626fc898cb59818133466c72"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mutate",
+			"item": [
+				{
+					"name": "Add new mxene",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"M1\": \"F\",\r\n    \"M2\": \"R\",\r\n    \"X\": \"U\",\r\n    \"T1\": \"I\",\r\n    \"T2\": \"T\",\r\n    \"bandGap\": \"0.000\",\r\n    \"latticeConstant\": \"235\",\r\n    \"magneticMoment\": \"234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/mutatemxene/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mutatemxene",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Mxene",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"62700fd25652253328c751cb\",\r\n    \"M1\": \"F\",\r\n    \"M2\": \"R\",\r\n    \"X\": \"U\",\r\n    \"T1\": \"I\",\r\n    \"T2\": \"T\",\r\n    \"bandGap\": \"0.02\",\r\n    \"latticeConstant\": \"0\",\r\n    \"magneticMoment\": \"0\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/mutatemxene/edit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mutatemxene",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete mxene",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mutatemxene/delete/62700fd25652253328c751cb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mutatemxene",
+								"delete",
+								"62700fd25652253328c751cb"
 							]
 						}
 					},

@@ -18,4 +18,23 @@ interface searchObjects {
     T2?: T & string;
 }
 
-export { M, X, T, searchObjects };
+interface requestBodyForAddingMxene {
+    M1: M & string;
+    M2: M & string;
+    X: X & string;
+    T1: T & string;
+    T2: T & string;
+    bandGap: string;
+    latticeConstant: string;
+    magneticMoment: string;
+}
+
+interface requestBodyForEditingMxene extends requestBodyForAddingMxene {
+    id: string;
+}
+
+interface requestBodyForDeletingMxene {
+    id: string;
+}
+
+export { M, X, T, searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene };
