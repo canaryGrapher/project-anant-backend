@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import helmet from "helmet";
+import cors from 'cors';
 
 const server: Application = express();
-// const router: Router = express.Router();
 const port = process.env.PORT || 3002;
 
 //importing routes
@@ -10,6 +10,12 @@ import mxeneSearchRouter from "@routes/search/mxene";
 import mxeneDownloadRouter from "@routes/download/mxene";
 import mutateMxeneRouter from "@routes/mutate/mxene";
 
+const allowedOrigins = ['http://localhost:3000'];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+};
+server.use(cors(options));
 server.use(express.json({ limit: "10kb", strict: true, type: "application/json" }));
 server.use(helmet({ contentSecurityPolicy: false }));
 

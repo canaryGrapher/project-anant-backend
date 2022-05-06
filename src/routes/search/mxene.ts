@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import { fetchMxeneDetails, singleSearch } from "@queries/index"
+import mxenePaths from '@queries/search/paths.mxene';
 
 const mxeneSearchRouter = Router();
 
@@ -51,6 +52,20 @@ mxeneSearchRouter.get('/searchbyid/:id',
             res.status(400).json(error);
         }
     })
+
+mxeneSearchRouter.get('/getmxenepaths',
+    async (req: Request, res: Response) => {
+    try {
+        const searchResults = await mxenePaths();
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(searchResults);
+    } catch (error) {
+        // microservice for logging. Use winston or other logging library
+        console.log(error);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(400).json(error);
+    }
+})
 
 
 // export the router
