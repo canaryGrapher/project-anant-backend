@@ -10,6 +10,10 @@ enum T {
     "H", "O", "F", "Cl", "Br", "OH", "NP", "CN", "RO", "OBr", "OCl", "SCN", "NCS", "OCN", ""
 }
 
+interface searchById {
+    id: string;
+}
+
 interface searchObjects {
     M1?: M & string;
     M2?: M & string;
@@ -37,4 +41,4 @@ interface requestBodyForDeletingMxene {
     id: string;
 }
 
-export { M, X, T, searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene };
+export { M, X, T, searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene, searchById };

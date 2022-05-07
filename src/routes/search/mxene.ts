@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
-import { fetchMxeneDetails } from "@queries/index"
+import { body, param, validationResult } from 'express-validator';
+import { fetchMxeneDetails, singleSearch, mxenePaths } from "@queries/index"
 
 const mxeneSearchRouter = Router();
 
@@ -32,6 +32,39 @@ mxeneSearchRouter.post('/',
         }
     })
 
+mxeneSearchRouter.get('/searchbyid/:id',
+    param('id').isString().withMessage('Valid id is required'),
+    async (req: Request, res: Response) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const searchResults = await singleSearch({ id: req.params.id });
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(searchResults);
+        } catch (error) {
+            // microservice for logging. Use winston or other logging library
+            console.log(error);
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json(error);
+        }
+    })
+
+mxeneSearchRouter.get('/getmxenepaths',
+    async (req: Request, res: Response) => {
+        try {
+            const searchResults = await mxenePaths();
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(searchResults);
+        } catch (error) {
+            // microservice for logging. Use winston or other logging library
+            console.log(error);
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json(error);
+        }
+    })
 
 
 // export the router

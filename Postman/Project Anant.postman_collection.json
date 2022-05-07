@@ -33,7 +33,238 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Mxene Search",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"M1\": \"Cr\",\r\n    \"M2\": \"Cr\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"Cl\",\r\n    \"T2\": \"OH\"\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/searchmxene",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"searchmxene"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cross-Origin-Embedder-Policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "197"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c5-eXaAyOURg+dx3f562eCtWHesGwI\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 May 2022 17:43:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"626fd2033323d98e0396b41f\",\n        \"M1\": \"Cr\",\n        \"M2\": \"Cr\",\n        \"X\": \"C\",\n        \"T1\": \"Cl\",\n        \"T2\": \"OH\",\n        \"mxene\": \"Cr-Cr-C-Cl-OH\",\n        \"bandGap\": \"0.0000\",\n        \"latticeConstant\": \"3.1550\",\n        \"magneticMoment\": \"3.7021\",\n        \"isMetallic\": true\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Search by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/searchmxene/searchbyid/626fd2033323d98e0396b41f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"searchmxene",
+								"searchbyid",
+								"626fd2033323d98e0396b41f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/searchmxene/searchbyid/626fd2033323d98e0396b41f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"searchmxene",
+										"searchbyid",
+										"626fd2033323d98e0396b41f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cross-Origin-Embedder-Policy",
+									"value": "require-corp"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "197"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c5-EMQAREwBvalKTcR4zfBPjmylepA\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 May 2022 18:01:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"626fd2033323d98e0396b41f\",\n        \"M1\": \"Cr\",\n        \"M2\": \"Cr\",\n        \"X\": \"C\",\n        \"T1\": \"Cl\",\n        \"T2\": \"OH\",\n        \"mxene\": \"Cr-Cr-C-Cl-OH\",\n        \"isMetallic\": true,\n        \"bandGap\": \"0.0000\",\n        \"latticeConstant\": \"3.1550\",\n        \"magneticMoment\": \"3.7021\"\n    }\n]"
+						}
+					]
 				}
 			]
 		},

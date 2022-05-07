@@ -19,16 +19,10 @@ const fetchMxeneDetails = async (searchParameters: searchObjects) => {
         where: filteredSearchParameters,
         select: {
             id: true,
-            M1: true,
-            M2: true,
-            X: true,
-            T1: true,
-            T2: true,
             mxene: true,
             bandGap: true,
             latticeConstant: true,
             magneticMoment: true,
-            isMetallic: true,
         }
     })
     return SearchResults;
