@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
-import { fetchMxeneDetails, singleSearch, mxenePaths } from "@queries/index"
+import { fetchMxeneDetails, singleSearch, mxenePaths } from "@queries/index";
+import fs from 'fs';
+
 
 const mxeneSearchRouter = Router();
 
@@ -42,8 +44,17 @@ mxeneSearchRouter.get('/searchbyid/:id',
         }
         try {
             const searchResults = await singleSearch({ id: req.params.id });
+            const data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
             res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(searchResults);
+            res.status(200).json({
+                id: searchResults[0].id,
+                mxene: searchResults[0].mxene,
+                isMetallic: searchResults[0].isMetallic,
+                bandGap: searchResults[0].bandGap,
+                latticeConstant: searchResults[0].latticeConstant,
+                magneticMoment: searchResults[0].magneticMoment,
+                poscar_data: data,
+            });
         } catch (error) {
             // microservice for logging. Use winston or other logging library
             console.log(error);
