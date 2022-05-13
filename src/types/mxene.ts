@@ -20,6 +20,7 @@ interface searchObjects {
     X?: X & string;
     T1?: T & string;
     T2?: T & string;
+    currentPage?: number;
 }
 
 interface requestBodyForAddingMxene {

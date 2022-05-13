@@ -15,14 +15,15 @@ mxeneSearchRouter.post('/',
     body('M2').isString().isIn(valuesM).withMessage('Valid M2 value is required'),
     body('X').isString().isIn(valuesX).withMessage('Valid X value is required'),
     body('T1').isString().isIn(valuesT).withMessage('Valid T1 value is required'),
-    body('T2').isString().isIn(valuesT).withMessage('Valid T2 value is required')
+    body('T2').isString().isIn(valuesT).withMessage('Valid T2 value is required'),
+    body('currentPage').isNumeric().withMessage('Current Page value is required')
     , async (req: Request, res: Response) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.setHeader('Content-Type', 'application/json');
-            res.status(400).json({ errors: errors.array() });
-        }
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(400).json({ errors: errors.array() });
+            }
             const searchResults = await fetchMxeneDetails(req.body);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json(searchResults);
