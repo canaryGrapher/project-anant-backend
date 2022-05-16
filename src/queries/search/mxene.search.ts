@@ -15,7 +15,6 @@ const filterSearchResults = (searchParameters: searchObjects) => {
 const fetchMxeneDetails = async (searchParameters: searchObjects) => {
     const currentPage = searchParameters.currentPage;
     const filteredSearchParameters: searchObjects = filterSearchResults(searchParameters);
-    console.log("Reached here")
     const SearchResults: any = await prisma.mxene.findMany({
         skip: (currentPage - 1) * 20,
         take: 20,
