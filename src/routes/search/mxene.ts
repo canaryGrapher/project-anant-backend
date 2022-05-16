@@ -16,7 +16,7 @@ mxeneSearchRouter.post('/',
     body('X').isString().isIn(valuesX).withMessage('Valid X value is required'),
     body('T1').isString().isIn(valuesT).withMessage('Valid T1 value is required'),
     body('T2').isString().isIn(valuesT).withMessage('Valid T2 value is required'),
-    body('bandGap').isNumeric().withMessage('Band gap value is required'),
+    body('bandGap').isNumeric().optional().withMessage('Band gap value is required'),
     body('currentPage').isNumeric().withMessage('Current Page value is required')
     , async (req: Request, res: Response) => {
         try {
@@ -26,7 +26,7 @@ mxeneSearchRouter.post('/',
                 res.status(400).json({ errors: errors.array() });
             }
             const searchParameters = req.body;
-            searchParameters.bandGap = (parseFloat(searchParameters.bandGap).toFixed(4)).toString();
+            searchParameters.bandGap ? (parseFloat(searchParameters.bandGap).toFixed(4)).toString() : null;
             const searchResults = await fetchMxeneDetails(searchParameters);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json(searchResults);
