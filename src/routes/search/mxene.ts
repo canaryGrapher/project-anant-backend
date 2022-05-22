@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
-import { fetchMxeneDetails, singleSearch, mxenePaths } from "@queries/index";
+import { fetchMxeneDetails, singleSearch, mxenePaths } from "@helpers/mxene/queries";
 import fs from 'fs';
 
 

@@ -1,14 +1,14 @@
 import { Router, Request, Response } from 'express';
 import { param, validationResult } from 'express-validator';
-import { downloadMxeneDetails } from "@queries/index"
+import { downloadMxeneDetails } from "@helpers/mxene/queries"
 
-// import checkJwt from "@middleware/auth"
+import checkJwt from "@middleware/auth"
 
 const mxeneDownloadRouter = Router();
 
 mxeneDownloadRouter.get('/',
     param('id').isEmpty().withMessage('ID value is required'),
-    // checkJwt,
+    checkJwt,
     async (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
