@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene } from '@typeDeclarations/mxene';
 import { body, param, validationResult } from 'express-validator';
-import { fetchMxeneDetails } from "@queries/index"
-import { addMxeneDetails, updateMxeneDetails, deleteMxeneDetails } from "@mutations/index"
+import { fetchMxeneDetails } from "@helpers/mxene/queries"
+import { addMxeneDetails, updateMxeneDetails, deleteMxeneDetails } from "helpers/mxene/mutations/index"
 
 // authentication middlewares
 import checkJwt from '@middleware/auth'

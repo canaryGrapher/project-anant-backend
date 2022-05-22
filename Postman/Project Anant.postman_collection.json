@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"M1\": \"Cr\",\r\n    \"M2\": \"Cr\",\r\n    \"X\": \"C\",\r\n    \"T1\": \"Cl\",\r\n    \"T2\": \"OH\"\r\n}"
+							"raw": "{\r\n    \"M1\": \"Cr\",\r\n    \"M2\": \"\",\r\n    \"X\": \"\",\r\n    \"T1\": \"\",\r\n    \"T2\": \"\",\r\n    \"currentPage\": 1\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/searchmxene",
@@ -151,14 +151,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/searchmxene/searchbyid/626fd2033323d98e0396b41f",
+							"raw": "{{base_url}}/searchmxene/searchbyid/626fc898cb59818133466c72",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"searchmxene",
 								"searchbyid",
-								"626fd2033323d98e0396b41f"
+								"626fc898cb59818133466c72"
 							]
 						}
 					},

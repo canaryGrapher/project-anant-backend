@@ -34,13 +34,13 @@ const downloadMxeneDetails = async (queryParameters: string) => {
 
 const createDownloadZip = async (downloadInformation: any) => {
     const zip = new JSZip();
-    const infoFile = await fs.readFileSync(process.env.MXENE_DOWNLOAD_RESOLVER + "/POTCAR.info")
+    const infoFile = fs.readFileSync(process.env.MXENE_DOWNLOAD_RESOLVER + "/POTCAR.info")
     zip.file('POTCAR.info', infoFile);
     for (let searchResult = 0; searchResult < downloadInformation.length; searchResult++) {
         // reading file streams
-        const filePOSCAR = await fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].poscar_file}`);
-        const fileImage = await fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].bands_png}`);
-        const datFile = await fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].bands_dat}`);
+        const filePOSCAR = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].poscar_file}`);
+        const fileImage = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].bands_png}`);
+        const datFile = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${downloadInformation[searchResult].bands_dat}`);
 
         // creating a ZIP folder
         const zipFile = zip.folder(`${downloadInformation[searchResult].mxene}`);

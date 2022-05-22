@@ -27,17 +27,14 @@
       "@prisma/*": [
         "prisma/*"
       ],
-      "@queries/*": [
-        "queries/*"
-      ],
       "@typeDeclarations/*": [
         "types/*"
       ],
       "@middleware/*": [
         "middlewares/*"
       ],
-      "@mutations/*": [
-        "mutations/*"
+      "@helpers/*": [
+        "helpers/*"
       ],
     },
     "resolveJsonModule": true, /* Enable importing .json files */

@@ -7,18 +7,15 @@ const singleSearch = async (searchParameters: searchById) => {
         where: { id: searchParameters.id },
         select: {
             id: true,
-            M1: true,
-            M2: true,
-            X: true,
-            T1: true,
-            T2: true,
             mxene: true,
             isMetallic: true,
             bandGap: true,
             latticeConstant: true,
             magneticMoment: true,
+            poscar_file: true,
         }
     })
+    // const returnData = {}
     return SearchResults;
 }
 

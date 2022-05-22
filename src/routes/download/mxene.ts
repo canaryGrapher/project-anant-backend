@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { param, validationResult } from 'express-validator';
-import { downloadMxeneDetails } from "@queries/index"
+import { downloadMxeneDetails } from "@helpers/mxene/queries"
 
 import checkJwt from "@middleware/auth"
 
