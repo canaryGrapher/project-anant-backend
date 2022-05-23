@@ -26,10 +26,17 @@ mxeneSearchRouter.post('/',
                 res.status(400).json({ errors: errors.array() });
             }
             const searchParameters = req.body;
-            searchParameters.bandGap ? (parseFloat(searchParameters.bandGap).toFixed(4)).toString() : null;
-            const searchResults = await fetchMxeneDetails(searchParameters);
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(searchResults);
+            if (searchParameters.bandGap) {
+                searchParameters.bandGap = (parseFloat(searchParameters.bandGap).toFixed(4)).toString()
+                const searchResults = await fetchMxeneDetails(searchParameters);
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(searchResults);
+            } else {
+                const searchResults = await fetchMxeneDetails(searchParameters);
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(searchResults);
+            }
+
         } catch (error) {
             // microservice for logging. Use winston or other logging library
             console.log(error);
