@@ -56,12 +56,14 @@ mxeneSearchRouter.get('/searchbyid/:id',
         try {
             const searchResults = await singleSearch({ id: req.params.id });
             const data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
+            const image = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].bands_png}`, 'base64');
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 id: searchResults[0].id,
                 mxene: searchResults[0].mxene,
                 isMetallic: searchResults[0].isMetallic,
                 bandGap: searchResults[0].bandGap,
+                bandImage: image,
                 latticeConstant: searchResults[0].latticeConstant,
                 magneticMoment: searchResults[0].magneticMoment,
                 poscar_data: data,

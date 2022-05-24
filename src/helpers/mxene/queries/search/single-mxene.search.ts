@@ -13,6 +13,7 @@ const singleSearch = async (searchParameters: searchById) => {
             latticeConstant: true,
             magneticMoment: true,
             poscar_file: true,
+            bands_png: true,
         }
     })
     // const returnData = {}
