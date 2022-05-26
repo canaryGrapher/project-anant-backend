@@ -16,9 +16,7 @@ const singleSearch = async (searchParameters: searchById) => {
             bands_png: true,
         }
     })
-    // const returnData = {}
     return SearchResults;
 }
-
 
 export default singleSearch;

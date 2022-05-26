@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import { fetchMxeneDetails, singleSearch, mxenePaths } from "@helpers/mxene/queries";
+import { spawnSync } from "child_process";
 import fs from 'fs';
 
 
@@ -55,8 +56,9 @@ mxeneSearchRouter.get('/searchbyid/:id',
         }
         try {
             const searchResults = await singleSearch({ id: req.params.id });
-            const data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
+            const poscar_data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
             const image = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].bands_png}`, 'base64');
+            const pdb_file_data = await fetch_pdb_file_data(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 id: searchResults[0].id,
@@ -66,7 +68,8 @@ mxeneSearchRouter.get('/searchbyid/:id',
                 bandImage: image,
                 latticeConstant: searchResults[0].latticeConstant,
                 magneticMoment: searchResults[0].magneticMoment,
-                poscar_data: data,
+                poscar_data: poscar_data,
+                pdb_data: pdb_file_data,
             });
         } catch (error) {
             // microservice for logging. Use winston or other logging library
@@ -90,6 +93,12 @@ mxeneSearchRouter.get('/getmxenepaths',
         }
     })
 
+
+
+const fetch_pdb_file_data = async (fileLocation: string) => {
+    const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation]);
+    return data.stdout.toString();
+}
 
 // export the router
 export default mxeneSearchRouter;
