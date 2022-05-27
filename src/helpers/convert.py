@@ -18,15 +18,15 @@ def formatFile(file):
     supercell = ase.build.make_supercell(
         structure, [[4, 0, 0], [0, 4, 0], [0, 0, 1]])
     xyzFile = file.split("/")[-1] + ".xyz"
-    filename = file.split("/")[-1] + ".pdb"
+    filename = "./src/routes/search/" + file.split("/")[-1] + ".pdb"
     ase.io.write(xyzFile, supercell, 'xyz')
     command = "obabel " + xyzFile + " -O " + filename
     os.system(command)
-    os.remove(xyzFile)
+    # os.remove(xyzFile)
     pdb_file = open(filename)
     pdb_content = pdb_file.read()
     pdb_file.close()
-    os.remove(filename)
+    # os.remove(filename)
     return pdb_content
 
 
@@ -44,6 +44,7 @@ def main(file):
     f = os.path.join(file)
     print(formatFile(f))
     sys.stdout.flush()
+    return "Hi"
 
 
 main(sys.argv[1])
