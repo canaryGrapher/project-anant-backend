@@ -40,7 +40,7 @@
     "resolveJsonModule": true, /* Enable importing .json files */
     "allowJs": false,
     "outDir": "build",
-    "removeComments": true,
+    "removeComments": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     /* Type Checking */
@@ -60,7 +60,7 @@
     "skipLibCheck": false, /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*",
   ],
   "exclude": [
     "node_modules"

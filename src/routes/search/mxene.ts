@@ -1,9 +1,9 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
-import { fetchMxeneDetails, singleSearch, mxenePaths, mxenePoscarFile } from "@helpers/mxene/queries";
+import { fetchMxeneDetails, singleSearch, mxenePaths } from "@helpers/mxene/queries";
 import { spawnSync } from "child_process";
 import fs from 'fs';
-import path from 'path';
+// import path from 'path';
 
 const mxeneSearchRouter = Router();
 
@@ -58,6 +58,8 @@ mxeneSearchRouter.get('/searchbyid/:id',
             const searchResults = await singleSearch({ id: req.params.id });
             const poscar_data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
             const image = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].bands_png}`, 'base64');
+            // const fileName = searchResults[0].poscar_file.split('/')[1] + ".pdb"
+            await fetch_pdb_file_data(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 id: searchResults[0].id,
@@ -68,6 +70,7 @@ mxeneSearchRouter.get('/searchbyid/:id',
                 latticeConstant: searchResults[0].latticeConstant,
                 magneticMoment: searchResults[0].magneticMoment,
                 poscar_data: poscar_data,
+                pdb_file: '/static/' + searchResults[0].poscar_file.split('/')[1] + ".pdb",
             });
         } catch (error) {
             // microservice for logging. Use winston or other logging library
@@ -91,38 +94,16 @@ mxeneSearchRouter.get('/getmxenepaths',
         }
     })
 
-mxeneSearchRouter.get('/getpdbfile/:id', param('id').isString().withMessage('Valid id is required'), async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(400).json({ errors: errors.array() });
+
+const fetch_pdb_file_data = async (fileLocation: string, pdb_resolver: string) => {
+    const path = process.env.PDB_FILE_RESOLVER + "/" + fileLocation.split('/')[3] + ".pdb";
+    if (fs.existsSync(path)) {
+        console.log("Path already exists")
+        return 0
+    } else {
+        const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation, pdb_resolver]);
+        return data.stdout.toString();
     }
-    try {
-        const searchResults = await mxenePoscarFile({ id: req.params.id });
-        // const filePath = path.join(__dirname, '../../chem_files/', (searchResults[0].poscar_file).split('/')[1], ".pdb");
-        const fileName = searchResults[0].poscar_file.split('/')[1] + ".pdb"
-        const filePath = path.join(__dirname, fileName);
-        console.log(filePath)
-        await fetch_pdb_file_data(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`);
-        const data = fs.readFileSync(filePath, 'utf8');
-        res.writeHead(200, {
-            'Content-Disposition': `attachment; filename="mxene.pdb"`,
-            'Content-Type': "chemical/x-pdb",
-        })
-
-        res.end(data)
-    } catch (error) {
-        // microservice for logging. Use winston or other logging library
-        console.log(error);
-        res.setHeader('Content-Type', 'application/json');
-        res.status(400).json(error);
-    }
-})
-
-
-const fetch_pdb_file_data = async (fileLocation: string) => {
-    const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation]);
-    return data.stdout.toString();
 }
 
 // export the router

@@ -8,21 +8,22 @@ import ase.build
 directory = '..\\..\\anant\\poscars'
 
 
-def formatFile(file):
-    poscar_file = open(file)
+def formatFile(poscar_file_url, pdb_file_directory):
+    poscar_file = open(poscar_file_url)
     poscar_content = poscar_file.read()
     poscar_content = str(poscar_content)[
         2:-3].replace('\\n', '\n').replace('\\t', '\t')
 
-    structure = ase.io.read(file)
+    structure = ase.io.read(poscar_file_url)
     supercell = ase.build.make_supercell(
         structure, [[4, 0, 0], [0, 4, 0], [0, 0, 1]])
-    xyzFile = file.split("/")[-1] + ".xyz"
-    filename = "./src/routes/search/" + file.split("/")[-1] + ".pdb"
+    xyzFile = poscar_file_url.split("/")[-1] + ".xyz"
+    filename = pdb_file_directory + "/" + \
+        poscar_file_url.split("/")[-1] + ".pdb"
     ase.io.write(xyzFile, supercell, 'xyz')
     command = "obabel " + xyzFile + " -O " + filename
     os.system(command)
-    # os.remove(xyzFile)
+    os.remove(xyzFile)
     pdb_file = open(filename)
     pdb_content = pdb_file.read()
     pdb_file.close()
@@ -40,11 +41,12 @@ def run_loop():
             i += 1
 
 
-def main(file):
-    f = os.path.join(file)
-    print(formatFile(f))
+def main(poscar_file, pdb_file_directory):
+    f1 = os.path.join(poscar_file)
+    f2 = os.path.join(pdb_file_directory)
+    print(formatFile(f1, f2))
     sys.stdout.flush()
-    return "Hi"
+    return 0
 
 
-main(sys.argv[1])
+main(sys.argv[1], sys.argv[2])

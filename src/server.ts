@@ -25,9 +25,15 @@ server.use(mongoSanitize());
 server.use(express.json({ limit: "10kb", strict: true, type: "application/json" }));
 server.use(helmet({ contentSecurityPolicy: false }));
 
+server.use('/static', express.static(process.env.PDB_FILE_RESOLVER));
+
 server.get("/", (req: Request, res: Response) => {
     res.status(200).send("The application is healthy");
 })
+server.get("/test", (req: Request, res: Response) => {
+    res.send("Message")
+})
+
 
 server.use("/searchmxene", mxeneSearchRouter)
 server.use("/downloadmxene", mxeneDownloadRouter)
@@ -36,11 +42,6 @@ server.use("/mutatemxene", mutateMxeneRouter)
 server.use("/publications", publicationsRouter)
 server.use("/updates", updatesRouter)
 server.use("/faqs", faqRouter)
-
-
-server.get("/test", (req: Request, res: Response) => {
-    res.send("Message")
-})
 
 server.get('*', (req: Request, res: Response) => {
     console.log("Something seems to be the issue")
