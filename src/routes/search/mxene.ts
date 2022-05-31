@@ -57,20 +57,16 @@ mxeneSearchRouter.get('/searchbyid/:id',
         try {
             const searchResults = await singleSearch({ id: req.params.id });
             const poscar_data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
-            const image = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].bands_png}`, 'base64');
-            // const fileName = searchResults[0].poscar_file.split('/')[1] + ".pdb"
             await fetch_pdb_file_data(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
-                id: searchResults[0].id,
                 mxene: searchResults[0].mxene,
-                isMetallic: searchResults[0].isMetallic,
                 bandGap: searchResults[0].bandGap,
-                bandImage: image,
+                bandImage: "/static/image/" + searchResults[0].bands_png.split('/')[1],
                 latticeConstant: searchResults[0].latticeConstant,
                 magneticMoment: searchResults[0].magneticMoment,
                 poscar_data: poscar_data,
-                pdb_file: '/static/' + searchResults[0].poscar_file.split('/')[1] + ".pdb",
+                pdb_file: '/static/pdb/' + searchResults[0].poscar_file.split('/')[1] + ".pdb",
             });
         } catch (error) {
             // microservice for logging. Use winston or other logging library
@@ -79,6 +75,8 @@ mxeneSearchRouter.get('/searchbyid/:id',
             res.status(400).json(error);
         }
     })
+
+
 
 mxeneSearchRouter.get('/getmxenepaths',
     async (req: Request, res: Response) => {

@@ -25,7 +25,10 @@ server.use(mongoSanitize());
 server.use(express.json({ limit: "10kb", strict: true, type: "application/json" }));
 server.use(helmet({ contentSecurityPolicy: false }));
 
-server.use('/static', express.static(process.env.PDB_FILE_RESOLVER));
+const pdb_file_locations = process.env.MXENE_DOWNLOAD_RESOLVER + "/pdb";
+const band_images_locations = process.env.MXENE_DOWNLOAD_RESOLVER + "/band_plots";
+server.use('/static/pdb', express.static(pdb_file_locations));
+server.use('/static/image', express.static(band_images_locations));
 
 server.get("/", (req: Request, res: Response) => {
     res.status(200).send("The application is healthy");
