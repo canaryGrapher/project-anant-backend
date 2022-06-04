@@ -1,14 +1,8 @@
 import { Router, Request, Response } from 'express';
-// import { searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene } from '@typeDeclarations/mxene';
-// import { body, param, validationResult } from 'express-validator';
-// import { fetchMxeneDetails } from "@queries/index"
-// import { addMxeneDetails, updateMxeneDetails, deleteMxeneDetails } from "@mutations/index"
-
 import { fetchAllPublications } from "@helpers/extras"
 
 // authentication middlewares
-import checkJwt from '@middleware/auth'
-import checkScopes from '@middleware/admin'
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const publicationsRouter = Router();
 
@@ -24,7 +18,7 @@ publicationsRouter.get("/", async (req: Request, res: Response) => {
 })
 
 publicationsRouter.post("/add-publication",
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
 
@@ -35,7 +29,7 @@ publicationsRouter.post("/add-publication",
     })
 
 publicationsRouter.patch("/toggle-favorite",
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
 
@@ -46,7 +40,7 @@ publicationsRouter.patch("/toggle-favorite",
     })
 
 publicationsRouter.delete("/delete-publication",
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
 

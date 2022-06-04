@@ -63,7 +63,7 @@ const createDownloadZip = async (downloadInformation: any) => {
         const csv = stringify(data, { header: true });
         zipFile.file(`${downloadInformation[searchResult].mxene}.csv`, csv);
     }
-    const zipFile = await zip.generateAsync({ type: 'nodebuffer' });
+    const zipFile = await zip.generateAsync({ type: 'base64' });
     return zipFile;
 }
 

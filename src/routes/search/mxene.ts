@@ -100,6 +100,8 @@ const fetch_pdb_file_data = async (fileLocation: string, pdb_resolver: string) =
         return 0
     } else {
         const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation, pdb_resolver]);
+        console.log(data.stdout.toString());
+        console.log(fileLocation, pdb_resolver)
         return data.stdout.toString();
     }
 }

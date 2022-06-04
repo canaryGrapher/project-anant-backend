@@ -64,5 +64,9 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "typeRoots": [
+    "./node_module/@types",
+    "./src/types"
+  ],
 }

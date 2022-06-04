@@ -5,8 +5,7 @@ import { fetchMxeneDetails } from "@helpers/mxene/queries"
 import { addMxeneDetails, updateMxeneDetails, deleteMxeneDetails } from "helpers/mxene/mutations/index"
 
 // authentication middlewares
-import checkJwt from '@middleware/auth'
-import checkScopes from '@middleware/admin'
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const mutateMxeneRouter = Router();
 
@@ -19,7 +18,7 @@ mutateMxeneRouter.post('/add',
     body('bandGap').isNumeric().withMessage('Band gap value is required'),
     body('latticeConstant').isNumeric().withMessage('Lattice constant is required'),
     body('magneticMoment').isNumeric().withMessage('Magnetic moment is required'),
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request<{}, {}, requestBodyForAddingMxene>, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -53,7 +52,7 @@ mutateMxeneRouter.put('/edit',
     body('bandGap').isNumeric().withMessage('Band gap value is required'),
     body('latticeConstant').isNumeric().withMessage('Lattice constant is required'),
     body('magneticMoment').isNumeric().withMessage('Magnetic moment is required'),
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request<{}, {}, requestBodyForEditingMxene>, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -70,9 +69,8 @@ mutateMxeneRouter.put('/edit',
         }
     })
 
-mutateMxeneRouter.delete('/delete/:id',
-    param('id').isString().withMessage("id format is invalid"),
-    checkJwt, checkScopes,
+mutateMxeneRouter.delete('/delete/:id', param('id').isString().withMessage("id format is invalid"),
+    verifySession(),
     async (req: Request<requestBodyForDeletingMxene, {}, {}>, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

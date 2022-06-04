@@ -1,14 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { param, validationResult } from 'express-validator';
 import { downloadMxeneDetails } from "@helpers/mxene/queries"
-
-import checkJwt from "@middleware/auth"
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const mxeneDownloadRouter = Router();
 
 mxeneDownloadRouter.get('/',
     param('id').isEmpty().withMessage('ID value is required'),
-    checkJwt,
+    verifySession(),
     async (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -19,7 +18,6 @@ mxeneDownloadRouter.get('/',
             const { id } = req.query;
             const downloadResults = await downloadMxeneDetails(id.toString());
             res.writeHead(200, {
-                'Content-Disposition': `attachment; filename="mxene.zip"`,
                 'Content-Type': "application/zip",
             })
             res.end(downloadResults);

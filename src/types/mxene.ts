@@ -38,7 +38,7 @@ interface requestBodyForEditingMxene extends requestBodyForAddingMxene {
     id: string;
 }
 
-interface requestBodyForDeletingMxene {
+type requestBodyForDeletingMxene = {
     id: string;
 }
 

@@ -1,13 +1,8 @@
 import { Router, Request, Response } from 'express';
-// import { searchObjects, requestBodyForAddingMxene, requestBodyForEditingMxene, requestBodyForDeletingMxene } from '@typeDeclarations/mxene';
-// import { body, param, validationResult } from 'express-validator';
-// import { fetchMxeneDetails } from "@queries/index"
-// import { addMxeneDetails, updateMxeneDetails, deleteMxeneDetails } from "@mutations/index"
 import { fetchAllFAQs } from "@helpers/extras"
 
 // authentication middlewares
-import checkJwt from '@middleware/auth'
-import checkScopes from '@middleware/admin'
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const faqRouter = Router();
 
@@ -23,8 +18,10 @@ faqRouter.get('/',
         }
     })
 
+
+// @ implement only for admins
 faqRouter.post('/add-faq',
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
 
@@ -34,8 +31,9 @@ faqRouter.post('/add-faq',
         }
     })
 
+// @ implement only for admins
 faqRouter.delete('/delete-faq',
-    checkJwt, checkScopes,
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
 
