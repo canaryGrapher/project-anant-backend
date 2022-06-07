@@ -96,12 +96,10 @@ mxeneSearchRouter.get('/getmxenepaths',
 const fetch_pdb_file_data = async (fileLocation: string, pdb_resolver: string) => {
     const path = process.env.PDB_FILE_RESOLVER + "/" + fileLocation.split('/')[3] + ".pdb";
     if (fs.existsSync(path)) {
-        console.log("Path already exists")
+        // pdb file was already generated
         return 0
     } else {
         const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation, pdb_resolver]);
-        console.log(data.stdout.toString());
-        console.log(fileLocation, pdb_resolver)
         return data.stdout.toString();
     }
 }

@@ -71,19 +71,43 @@ server.get("/sessioninfo", verifySession(), async (req: Request, res: Response) 
     });
 });
 
+server.get("/healthcheck", async (req: Request, res: Response) => {
+    const healthcheck = {
+        status: "ok",
+        uptime: process.uptime(),
+        memoryUsage: process.memoryUsage(),
+        cpuUsage: process.cpuUsage(),
+        processId: process.pid,
+        processTitle: process.title,
+        processArgv: process.argv,
+        processCwd: process.cwd(),
+        processExecPath: process.execPath,
+        processExecArgv: process.execArgv,
+        responseTime: process.hrtime(),
+        fresh: req.fresh,
+        stale: req.stale,
+        hostname: req.hostname,
+        ip: req.ip,
+        ips: req.ips,
+        subdomains: req.subdomains,
+        xhr: req.xhr,
+        protocol: req.protocol,
+        secure: req.secure,
+    }
+    res.send(healthcheck);
+})
 
 server.use(errorHandler());
 
 server.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
-    console.log("Req: ", req)
     res.status(500).send(err);
 });
 
 
-// server.get('*', (req: Request, res: Response) => {
-//     console.log("Something seems to be the issue")
-//     res.status(404).send("Not found as of now")
-// })
+server.get('*', (req: Request, res: Response) => {
+    console.log("Something seems to be the issue")
+    res.status(404).send("Not found as of now")
+})
 
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

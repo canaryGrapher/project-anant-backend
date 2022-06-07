@@ -30,8 +30,7 @@ mutateMxeneRouter.post('/add',
             if (searchResults.length > 0) {
                 res.status(400).json({ errors: [{ msg: 'Mxene already exists' }] });
             } else {
-                const addNewMxene = await addMxeneDetails(req.body);
-                console.log(addNewMxene)
+                await addMxeneDetails(req.body);
                 res.status(200).json({ msg: "Uploaded to database" })
             }
 
@@ -59,8 +58,7 @@ mutateMxeneRouter.put('/edit',
             res.status(400).json({ errors: errors.array() });
         }
         try {
-            const editedMxene = await updateMxeneDetails(req.body);
-            console.log(editedMxene)
+            await updateMxeneDetails(req.body);
             res.status(200).json({ msg: "Updated in database" })
         } catch (error) {
             // microservice for logging. Use winston or other logging library
@@ -77,8 +75,7 @@ mutateMxeneRouter.delete('/delete/:id', param('id').isString().withMessage("id f
             res.status(400).json({ errors: errors.array() });
         }
         try {
-            const editedMxene = await deleteMxeneDetails(req.params);
-            console.log(editedMxene)
+            await deleteMxeneDetails(req.params);
             res.status(200).json({ msg: "Deleted from database" })
         } catch (error) {
             // microservice for logging. Use winston or other logging library
