@@ -1,22 +1,20 @@
 import { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import { fetchMxeneDetails, singleSearch, mxenePaths } from "@helpers/mxene/queries";
-import { spawnSync } from "child_process";
+import { generate_pdb_file } from "@helpers/functions"
 import fs from 'fs';
-// import path from 'path';
 
 const mxeneSearchRouter = Router();
 
-const valuesM: string[] = ["Sc", "Ti", "V", "Cr", "Y", "Zr", "Nb", "Mo", "Hf", "Ta", "W", ""]
-const valuesX: string[] = ["C", "N", ""]
-const valuesT: string[] = ["H", "O", "F", "Cl", "Br", "OH", "NP", "CN", "RO", "OBr", "OCl", "SCN", "NCS", "OCN", ""]
-
+// @route   POST /searchmxene
+// @desc    Route to find all mxene in the database that match the search query
+// @access  Public
 mxeneSearchRouter.post('/',
-    body('M1').isString().isIn(valuesM).withMessage('Valid M1 value is required'),
-    body('M2').isString().isIn(valuesM).withMessage('Valid M2 value is required'),
-    body('X').isString().isIn(valuesX).withMessage('Valid X value is required'),
-    body('T1').isString().isIn(valuesT).withMessage('Valid T1 value is required'),
-    body('T2').isString().isIn(valuesT).withMessage('Valid T2 value is required'),
+    body('M1').isString().withMessage('Valid M1 value is required'),
+    body('M2').isString().withMessage('Valid M2 value is required'),
+    body('X').isString().withMessage('Valid X value is required'),
+    body('T1').isString().withMessage('Valid T1 value is required'),
+    body('T2').isString().withMessage('Valid T2 value is required'),
     body('bandGap').isNumeric().optional().withMessage('Band gap value is required'),
     body('currentPage').isNumeric().withMessage('Current Page value is required')
     , async (req: Request, res: Response) => {
@@ -46,6 +44,9 @@ mxeneSearchRouter.post('/',
         }
     })
 
+// @route   GET /searchmxene/searchbyid/:id
+// @desc    Route find a single mxene in the database
+// @access  Public
 mxeneSearchRouter.get('/searchbyid/:id',
     param('id').isString().withMessage('Valid id is required'),
     async (req: Request, res: Response) => {
@@ -57,7 +58,7 @@ mxeneSearchRouter.get('/searchbyid/:id',
         try {
             const searchResults = await singleSearch({ id: req.params.id });
             const poscar_data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
-            await fetch_pdb_file_data(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
+            await generate_pdb_file(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 mxene: searchResults[0].mxene,
@@ -77,7 +78,9 @@ mxeneSearchRouter.get('/searchbyid/:id',
     })
 
 
-
+// @route   POST /searchmxene/getmxenepaths
+// @desc    Route to find all mxene names in the database for static site generation purposes
+// @access  Public
 mxeneSearchRouter.get('/getmxenepaths',
     async (req: Request, res: Response) => {
         try {
@@ -92,17 +95,4 @@ mxeneSearchRouter.get('/getmxenepaths',
         }
     })
 
-
-const fetch_pdb_file_data = async (fileLocation: string, pdb_resolver: string) => {
-    const path = process.env.PDB_FILE_RESOLVER + "/" + fileLocation.split('/')[3] + ".pdb";
-    if (fs.existsSync(path)) {
-        // pdb file was already generated
-        return 0
-    } else {
-        const data = spawnSync('python', ['./src/helpers/convert.py', fileLocation, pdb_resolver]);
-        return data.stdout.toString();
-    }
-}
-
-// export the router
 export default mxeneSearchRouter;

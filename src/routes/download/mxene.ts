@@ -5,6 +5,9 @@ import { verifySession } from "supertokens-node/recipe/session/framework/express
 
 const mxeneDownloadRouter = Router();
 
+// @route   GET /downloadmxene/:id
+// @desc    route to download mxene zip files
+// @access  Protected
 mxeneDownloadRouter.get('/',
     param('id').isEmpty().withMessage('ID value is required'),
     verifySession(),
@@ -31,5 +34,4 @@ mxeneDownloadRouter.get('/',
 
 
 
-// export the router
 export default mxeneDownloadRouter;

@@ -6,6 +6,9 @@ import { verifySession } from "supertokens-node/recipe/session/framework/express
 
 const publicationsRouter = Router();
 
+// @route   GET /publications
+// @desc    Route to get all publications on the database
+// @access  Public
 publicationsRouter.get("/", async (req: Request, res: Response) => {
     try {
         const publicationsResults = await fetchAllPublications();
@@ -17,6 +20,10 @@ publicationsRouter.get("/", async (req: Request, res: Response) => {
     }
 })
 
+// INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE
+// @route   POST /publications
+// @desc    Route to add a new publication to the database
+// @access  Protected
 publicationsRouter.post("/add-publication",
     verifySession(),
     async (req: Request, res: Response) => {
@@ -28,6 +35,10 @@ publicationsRouter.post("/add-publication",
         }
     })
 
+// INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE    
+// @route   Patch /publications/toggle-favorite/:id
+// @desc    Route to add/remove a publication to/from favorites
+// @access  Protected
 publicationsRouter.patch("/toggle-favorite",
     verifySession(),
     async (req: Request, res: Response) => {
@@ -39,6 +50,10 @@ publicationsRouter.patch("/toggle-favorite",
         }
     })
 
+// INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE
+// @route   DELETE /publications/delete-publication/:id
+// @desc    Route to delete a publication entry from the database
+// @access  Protected
 publicationsRouter.delete("/delete-publication",
     verifySession(),
     async (req: Request, res: Response) => {

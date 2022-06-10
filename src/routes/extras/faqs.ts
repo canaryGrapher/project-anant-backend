@@ -1,11 +1,14 @@
 import { Router, Request, Response } from 'express';
 import { fetchAllFAQs } from "@helpers/extras"
-
+import { param } from 'express-validator';
 // authentication middlewares
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const faqRouter = Router();
 
+// @route   GET /faqs
+// @desc    Route to get all FAQs on the database
+// @access  Public
 faqRouter.get('/',
     async (req: Request, res: Response) => {
         try {
@@ -19,7 +22,9 @@ faqRouter.get('/',
     })
 
 
-// @ implement only for admins
+// @route   POST /faqs/add-faq
+// @desc    Route to add a new FAQ
+// @access  Protected
 faqRouter.post('/add-faq',
     verifySession(),
     async (req: Request, res: Response) => {
@@ -31,8 +36,13 @@ faqRouter.post('/add-faq',
         }
     })
 
-// @ implement only for admins
-faqRouter.delete('/delete-faq',
+
+// INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE
+// @route   DELETE /faqs/:id
+// @desc    Route to delete a FAQ
+// @access  Protected
+faqRouter.delete('/delete-faq/:id',
+    param('id').isEmpty().withMessage('ID value is required'),
     verifySession(),
     async (req: Request, res: Response) => {
         try {

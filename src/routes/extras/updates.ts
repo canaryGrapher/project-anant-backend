@@ -7,6 +7,9 @@ import { verifySession } from "supertokens-node/recipe/session/framework/express
 
 const updatesRouter = Router();
 
+// @route   GET /updates
+// @desc    Route to get all updates from the database
+// @access  Public
 updatesRouter.get("/", async (req: Request, res: Response) => {
     try {
         const updatesResults = await fetchAllUpdates();
@@ -18,6 +21,10 @@ updatesRouter.get("/", async (req: Request, res: Response) => {
     }
 })
 
+// INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE
+// @route   POST /updates/make-update
+// @desc    Route to add an update to the database
+// @access  Protected
 updatesRouter.post("/make-update",
     verifySession(),
     async (req: Request, res: Response) => {

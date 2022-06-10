@@ -4,7 +4,9 @@ import Session from "supertokens-node/recipe/session";
 import ThirdParty from "supertokens-node/recipe/thirdparty";
 let { Google, Github, Apple, Facebook } = ThirdParty;
 
-
+// configurations related to supertokens
+// DO NOT MODIFY if you do not know what you are doing
+// this configuration needs to be in sync with the configuration on the frontend
 export const backendConfig = () => {
     SuperTokens.init({
         framework: "express",
