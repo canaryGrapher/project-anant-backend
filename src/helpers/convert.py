@@ -4,8 +4,6 @@ import os
 import sys
 import ase.io
 import ase.build
-# assign directory
-directory = '..\\..\\anant\\poscars'
 
 
 def formatFile(poscar_file_url, pdb_file_directory):
@@ -13,7 +11,6 @@ def formatFile(poscar_file_url, pdb_file_directory):
     poscar_content = poscar_file.read()
     poscar_content = str(poscar_content)[
         2:-3].replace('\\n', '\n').replace('\\t', '\t')
-
     structure = ase.io.read(poscar_file_url)
     supercell = ase.build.make_supercell(
         structure, [[4, 0, 0], [0, 4, 0], [0, 0, 1]])
@@ -29,16 +26,6 @@ def formatFile(poscar_file_url, pdb_file_directory):
     pdb_file.close()
     # os.remove(filename)
     return pdb_content
-
-
-def run_loop():
-    for filename in os.listdir(directory):
-        i = 1
-        f = os.path.join(directory, filename)
-        # checking if it is a file
-        if os.path.isfile(f) and i < 2:
-            formatFile(f)
-            i += 1
 
 
 def main(poscar_file, pdb_file_directory):
