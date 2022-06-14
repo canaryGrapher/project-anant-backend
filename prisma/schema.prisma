@@ -24,6 +24,19 @@ model mxene {
   bands_png       String  @unique
 }
 
+model mxeneProposals {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  mxene           String @unique
+  M1              String
+  M2              String
+  T1              String
+  T2              String
+  X               String
+  latticeConstant String
+  bandwith        String
+  formula         String
+}
+
 model faqs {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   question String

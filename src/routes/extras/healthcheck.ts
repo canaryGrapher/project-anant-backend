@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express';
 const healthCheckRouter = Router();
 
 
-// @route   GET /faqs
+// @route   GET /healthcheck
 // @desc    Route to get server health
 // @access  Public
 healthCheckRouter.get("/", async (req: Request, res: Response) => {
@@ -23,8 +23,6 @@ healthCheckRouter.get("/", async (req: Request, res: Response) => {
         stale: req.stale,
         hostname: req.hostname,
         ip: req.ip,
-        ips: req.ips,
-        subdomains: req.subdomains,
         xhr: req.xhr,
         protocol: req.protocol,
         secure: req.secure,

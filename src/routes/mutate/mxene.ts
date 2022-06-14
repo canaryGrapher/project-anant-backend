@@ -9,8 +9,8 @@ import { verifySession } from "supertokens-node/recipe/session/framework/express
 
 const mutateMxeneRouter = Router();
 
-// @route   POST /mutatemxene/add
-// @desc    Route to add a new mxene to database
+// @route   POST /mutatemxene/add/:id
+// @desc    Approve mxene uploaded by users
 // @access  Protected
 // mutateMxeneRouter.post('/approve/:id',
 //     param('id').isEmpty().withMessage('ID value is required'),

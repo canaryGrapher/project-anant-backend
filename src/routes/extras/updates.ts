@@ -22,6 +22,7 @@ updatesRouter.get("/", async (req: Request, res: Response) => {
 })
 
 // INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE
+// @ToDo: Convert this to a function and use it in the other routes
 // @route   POST /updates/make-update
 // @desc    Route to add an update to the database
 // @access  Protected

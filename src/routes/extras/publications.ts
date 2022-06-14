@@ -36,10 +36,10 @@ publicationsRouter.post("/add-publication",
     })
 
 // INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE INCOMPLETE    
-// @route   Patch /publications/toggle-favorite/:id
+// @route   Put /publications/toggle-favorite/:id
 // @desc    Route to add/remove a publication to/from favorites
 // @access  Protected
-publicationsRouter.patch("/toggle-favorite",
+publicationsRouter.put("/toggle-favorite",
     verifySession(),
     async (req: Request, res: Response) => {
         try {

@@ -19,7 +19,7 @@ import publicationsRouter from "@routes/extras/publications";
 import updatesRouter from "@routes/extras/updates";
 import faqRouter from "@routes/extras/faqs";
 //importing helthcheck route
-import healthCheckRouter from "@routes/miscellaneous/healthcheck";
+import healthCheckRouter from "@routes/extras/healthcheck";
 
 // iniitalizing express server
 const server: Application = express();
@@ -29,23 +29,29 @@ backendConfig();
 
 // defining cors options
 server.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     preflightContinue: false,
     optionsSuccessStatus: 200
 }));
 server.use(middleware());
 server.use(mongoSanitize());
 server.use(express.json({ limit: "10kb", strict: true, type: "application/json" }));
-server.use(helmet({ contentSecurityPolicy: false }));
+server.use(helmet());
 
 // giving access to the pdb and the image forlder of the database folder publically
 const pdb_file_locations = process.env.MXENE_DOWNLOAD_RESOLVER + "/pdb";
 const band_images_locations = process.env.MXENE_DOWNLOAD_RESOLVER + "/band_plots";
-server.use('/static/pdb', express.static(pdb_file_locations));
-server.use('/static/image', express.static(band_images_locations));
+const staticOptions = {
+    dotfiles: 'deny',
+    etag: true,
+    immutable: true,
+    maxAge: '1d',
+}
+server.use('/static/pdb', express.static(pdb_file_locations, staticOptions));
+server.use('/static/image', express.static(band_images_locations, staticOptions));
 
 // @route   GET /
 // @desc    dummy route for testing
@@ -65,9 +71,9 @@ server.use("/faqs", faqRouter)
 server.use("/healthcheck", healthCheckRouter)
 // authentication routes
 
-// // @route   GET /sessioninfo
-// // @desc    information about the current session
-// // @access  Protected
+// @route   GET /sessioninfo
+// @desc    information about the current session
+// @access  Protected
 server.get("/", verifySession(), async (req: Request, res: Response) => {
     let session = req.session;
     res.status(200).json({
