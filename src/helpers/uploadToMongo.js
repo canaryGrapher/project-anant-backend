@@ -6,7 +6,7 @@ const mongodb_uri = process.env.MONGODB_URI;
 
 const anantData = require("./information.json")
 
-const CreateCollections = () => {
+const CreateCollections = async () => {
     MongoDB.connect(mongodb_uri, function (err, db) {
         if (err) throw err;
         var dbo = db.db("anant");
@@ -49,22 +49,15 @@ const InsertData = async (data) => {
                 if (err) throw err;
                 console.log(`${data[i].mxene} inserted`);
             })
-            // delete the next three lines when doing a full upload
-            if (i == 50) {
-                break;
-            }
+            // uncomment the next three lines when doing a partial upload
+            // if (i == 50) {
+            //     break;
+            // }
             // till here
         }
     })
 }
 
-// {
-//     "mxene": "Cr-Cr-C-CN-Br",
-//     "latticeParameter": "3.180",
-//     "bandGap": 0,
-//     "isMetallic": true,
-//     "magneticMoment": "3.1953"
-//   },
 const main = async () => {
     await CreateCollections();
     InsertData(anantData)
