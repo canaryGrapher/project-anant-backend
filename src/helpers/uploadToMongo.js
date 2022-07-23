@@ -18,6 +18,7 @@ const CreateCollections = async () => {
 }
 
 const InsertData = async (data) => {
+    await CreateCollections();
     MongoDB.connect(mongodb_uri, async (err, db) => {
         if (err) throw err;
         const databaseObject = db.db("anant");
@@ -38,7 +39,7 @@ const InsertData = async (data) => {
                 "bandGap": parseFloat(data[i].bandGap).toFixed(4),
                 "latticeConstant": parseFloat(data[i].latticeParameter).toFixed(4),
                 "magneticMoment": parseFloat(data[i].magneticMoment).toFixed(4),
-                "isMetallic": data[i].isMetallic,
+                "isMetallic": Boolean(data[i].isMetallic),
                 "poscar_file": poscar_file,
                 "bands_dat": bands_dat,
                 "bands_png": bands_png
@@ -59,7 +60,6 @@ const InsertData = async (data) => {
 }
 
 const main = async () => {
-    await CreateCollections();
     InsertData(anantData)
 }
 

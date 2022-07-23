@@ -630,6 +630,38 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Email",
+					"item": [
+						{
+							"name": "Add email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ben10sonic307@gmail.com\"\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/email",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"email"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			],
 			"auth": {

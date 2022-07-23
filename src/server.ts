@@ -18,6 +18,7 @@ import mutateMxeneRouter from "@routes/mutate/mxene";
 import publicationsRouter from "@routes/extras/publications";
 import updatesRouter from "@routes/extras/updates";
 import faqRouter from "@routes/extras/faqs";
+import emailRouter from "@routes/extras/email";
 //importing helthcheck route
 import healthCheckRouter from "@routes/extras/healthcheck";
 
@@ -69,8 +70,9 @@ server.use("/publications", publicationsRouter)
 server.use("/updates", updatesRouter)
 server.use("/faqs", faqRouter)
 server.use("/healthcheck", healthCheckRouter)
-// authentication routes
+server.use("/email", emailRouter);
 
+// authentication routes
 // @route   GET /sessioninfo
 // @desc    information about the current session
 // @access  Protected
