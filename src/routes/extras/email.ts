@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 import { fetchAllEmails } from "@helpers/extras"
 
 // authentication middlewares
-// import { verifySession } from "supertokens-node/recipe/session/framework/express";
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 
 const emailRouter = Router();
 
@@ -12,7 +12,7 @@ const emailRouter = Router();
 // @access  Protected
 emailRouter.post("/",
     body('email').isEmail().withMessage('Please enter a valid email address'),
-    // verifySession(),
+    verifySession(),
     async (req: Request, res: Response) => {
         try {
             const errors = validationResult(req);
