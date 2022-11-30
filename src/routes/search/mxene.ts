@@ -58,7 +58,7 @@ mxeneSearchRouter.get('/searchbyid/:id',
         try {
             const searchResults = await singleSearch({ id: req.params.id });
             const poscar_data = fs.readFileSync(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, 'utf8');
-            await generate_pdb_file(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
+            const pdb_file_content = await generate_pdb_file(`${process.env.MXENE_DOWNLOAD_RESOLVER}/${searchResults[0].poscar_file}`, process.env.PDB_FILE_RESOLVER);
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 mxene: searchResults[0].mxene,
@@ -67,7 +67,8 @@ mxeneSearchRouter.get('/searchbyid/:id',
                 latticeConstant: searchResults[0].latticeConstant,
                 magneticMoment: searchResults[0].magneticMoment,
                 poscar_data: poscar_data,
-                pdb_file: '/static/pdb/' + searchResults[0].poscar_file.split('/')[1] + ".pdb",
+                // pdb_file: '/static/pdb/' + searchResults[0].poscar_file.split('/')[1] + ".pdb",
+                pdb_file_content: pdb_file_content
             });
         } catch (error) {
             // microservice for logging. Use winston or other logging library
